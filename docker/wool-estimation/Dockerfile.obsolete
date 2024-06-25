@@ -1,0 +1,45 @@
+# From the original fibre segmentation package, can't be built anymore
+
+FROM nvidia/cuda:11.3.0-base-ubuntu18.04
+
+ENV TZ=Australia/Sydney
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+
+RUN apt-get update && \
+    apt-get install -y sudo cmake wget bash build-essential software-properties-common ca-certificates xvfb libsm6 libxrender1 libfontconfig1 libpython3.6-dev libopenblas-dev libxext-dev libglib2.0-0 libglfw3 freeglut3-dev git vim gcc g++ zlib1g
+
+RUN apt-get install -y python3.6-venv python3.6-dev python3-pip
+
+RUN python3.6 -m pip install numpy \
+                             scipy \
+                             matplotlib==3.3.4 \
+                             future-fstrings \
+                             scikit-learn==0.24.2 \
+                             tifffile==2020.9.3 \
+                             Pillow==6.2.2 \
+                             pypng==0.0.21 \
+                             scikit-image \
+                             scikit-build \
+                             Cython==0.29.10 \
+                             setuptools \
+                             pyyaml
+
+RUN python3.6 -m pip install opencv-python==3.4.2.17 #opencv-python==4.5.5.62
+
+RUN python3.6 -m pip install torch==1.10.0+cu113 torchvision==0.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+
+#RUN python3.6 -m pip install tensorboard
+
+RUN python3.6 -m pip install pycocotools
+
+# ==================================================================
+# config & cleanup
+# ------------------------------------------------------------------
+
+RUN ldconfig
+RUN apt-get clean
+RUN apt-get -y autoremove
+RUN rm -rf /var/lib/apt/lists/* /tmp/* ~/*
