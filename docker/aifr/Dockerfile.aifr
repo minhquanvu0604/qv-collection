@@ -20,16 +20,17 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache numpy==1.23.5
    
 RUN RUN python3.10 -m pip install \
-numpy \    jupyter \
+                    numpy \
+                    jupyter \
                     torch \
                     torchvision \
                     pyrealsense2 \
                     ultralytics 
-# Install ultralytics before or after pytorch??
+## NOTE Install ultralytics before or after pytorch??
 
 RUN apt-get update && apt-get install -y git
 
-
+# ----------- Realsense SDK 2.0 ------------
 RUN mkdir -p aifr_ws/src && \
     cd aifr_ws && \
     catkin init && \
@@ -41,7 +42,7 @@ RUN /bin/bash -c "source /opt/ros/noetic/setup.bash && \
     cd /aifr_ws && \
     catkin_make -j2"
 
-## Will need to add rosdep install here
+## TODO Will need to add rosdep install here
 
 
 
