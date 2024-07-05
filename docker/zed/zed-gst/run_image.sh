@@ -18,8 +18,8 @@ docker run 	--runtime nvidia \
 		-e DISPLAY \
   		-v /dev:/dev \
   		-v /tmp/.X11-unix/:/tmp/.X11-unix \
-  		-v ./:/root/ros2_ws/src # Link the zed-ros2-examples directory in host OS to container ws
-  		utsma_zed_ros2_img
+  		-v ./:/root/ros2_ws/src \
+  		utsma_zed_ros2_img:latest
 
 # Once you're inside the container, build the workspace following the instruction from zed-ros2-examples
 # Then you should be able to run rviz: $ ros2 launch zed_display_rviz2 display_zed_cam.launch.py camera_model:=zed2

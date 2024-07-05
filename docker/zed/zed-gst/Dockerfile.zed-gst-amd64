@@ -1,10 +1,8 @@
 FROM docker.io/ros:humble
 
-# Add NVIDIA GPG key
+# Add NVIDIA, ROS2, Ubuntu GPG key
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/7fa2af80.pub
-# Add ROS2 GPG key
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key F42ED6FBAB17C654
-# Add Ubuntu GPG key
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 3B4FE6ACC0B21F32
 RUN apt-get update
 
@@ -56,11 +54,13 @@ RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/lib
 
 # Build and setup environment
 WORKDIR /opt/workspace
-COPY . /opt/workspace/src/zed-gst-ros2
+
+# Parameterise path
+COPY .. /opt/workspace/src/zed-gst-ros2 
 RUN . /opt/ros/humble/setup.sh && colcon build
 
-ENV GST_PLUGIN_PATH=/opt/workspace/install/gst_bridge/lib/gst_bridge
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs
+ENV GST_PLUGIN_PATH /opt/workspace/install/gst_bridge/lib/gst_bridge
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
-RUN chmod +x /opt/workspace/src/zed-gst-ros2/entrypoint-amd64.sh
-ENTRYPOINT ["/opt/workspace/src/zed-gst-ros2/entrypoint-amd64.sh"]
+# RUN chmod +x /opt/workspace/src/zed-gst-ros2/entrypoint-amd64.sh --------FIX THIS
+# ENTRYPOINT ["/opt/workspace/src/zed-gst-ros2/entrypoint-amd64.sh"]
