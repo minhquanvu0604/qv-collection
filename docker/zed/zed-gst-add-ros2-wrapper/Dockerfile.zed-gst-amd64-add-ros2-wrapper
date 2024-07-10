@@ -55,12 +55,16 @@ RUN cmake -DCMAKE_LIBRARY_PATH= -DCMAKE_BUILD_TYPE=Release ..
 RUN make && make install
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
 
-# [QV] Add zed-ros2-wrapper
+# ------------ QV -----------
+# Add zed-ros2-wrapper
 ARG ZED_ROS2_WRAPPER_PATH
 
 WORKDIR /opt/workspace/src
 COPY ${ZED_ROS2_WRAPPER_PATH} /opt/workspace/src/
 
+# For testing only
+RUN git clone https://github.com/stereolabs/zed-ros2-examples.git
+# ----------------------------
 
 # Build and setup environment
 WORKDIR /opt/workspace
