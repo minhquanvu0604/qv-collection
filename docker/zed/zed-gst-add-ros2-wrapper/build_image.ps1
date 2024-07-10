@@ -1,6 +1,8 @@
 # Will need to be configurable for ubuntu, cuda and zed sdk versions like
 # https://github.com/stereolabs/zed-ros2-wrapper/blob/master/docker/desktop_build_dockerfile_from_sdk_ubuntu_and_cuda_version.sh
 
+# check on best practice of tmp_sources
+
 
 $ZedRos2WrapperPath = "./temp_sources/zed-ros2-wrapper"
 
