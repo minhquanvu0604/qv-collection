@@ -56,19 +56,28 @@ RUN make && make install
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
 
 # [QV] Add zed-ros2-wrapper
+ARG ZED_ROS2_WRAPPER_PATH
+
 WORKDIR /opt/workspace/src
-COPY zed-ros2-wrapper /opt/workspace/src/
-
-
+COPY ${ZED_ROS2_WRAPPER_PATH} /opt/workspace/src/
 
 
 # Build and setup environment
 WORKDIR /opt/workspace
 
 # Parameterise path
-COPY .. /opt/workspace/src/zed-gst-ros2 
-RUN . /opt/ros/humble/setup.sh && colcon build
-
+# COPY .. /opt/workspace/src/zed-gst-ros2 
+# RUN . /opt/ros/humble/setup.sh && colcon build
+RUN /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && \
+  apt-get update -y || true && \
+  rosdep install --from-paths src --ignore-src -r -y && \
+  colcon build --parallel-workers $(nproc) --symlink-install \
+  --event-handlers console_direct+ --base-paths src \
+  --cmake-args ' -DCMAKE_BUILD_TYPE=Release' \
+  ' -DCMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs' \
+  ' -DCMAKE_CXX_FLAGS="-Wl,--allow-shlib-undefined"' " && \
+  rm -rf /var/lib/apt/lists/*
+  
 ENV GST_PLUGIN_PATH /opt/workspace/install/gst_bridge/lib/gst_bridge
 ENV LD_LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
