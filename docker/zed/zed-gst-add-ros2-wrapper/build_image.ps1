@@ -6,7 +6,8 @@
 
 $ZedRos2WrapperPath = "./temp_sources/zed-ros2-wrapper"
 
-# clone zed-ros2-wrapper
+# Clone the zed-ros2-wrapper repository if it doesn't already exist
+# --recurse-submodules to include zed_interfaces
 if (-Not (Test-Path -Path $ZedRos2WrapperPath)) {
     Write-Host "Cloning zed-ros2-wrapper repository..."
     git clone --recurse-submodules https://github.com/stereolabs/zed-ros2-wrapper.git $ZedRos2WrapperPath
