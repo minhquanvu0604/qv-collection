@@ -1,5 +1,4 @@
-# Use ChatGPT4 to create a new Dockerfile from the obsolete one
-# It adds bunch of packages, will need to verify them
+# New dockerfile for the wool diameter pipeline (2024)
 
 # Use CUDA 11.3 with Ubuntu 22.04 base image
 FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
