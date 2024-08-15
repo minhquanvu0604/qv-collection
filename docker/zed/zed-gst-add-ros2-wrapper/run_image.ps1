@@ -1,6 +1,7 @@
 docker run `
-    --gpus=all `
     -it `
+    --name utsma_zed_ros2_add_wrapper_container `
+    --gpus=all `
     --privileged `
     --ipc=host `
     --pid=host `
