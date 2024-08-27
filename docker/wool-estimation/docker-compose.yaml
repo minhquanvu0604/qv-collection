@@ -18,7 +18,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /home/quanvu/git/wool-estimation:/root/wool-estimation
       # - /media/quanvu/MinhQuanVu4/AWI:/root/AWI
-      - /home/quanvu/uts/AWI_results/qv_segmentation_results:/root/AWI/qv_segmentation_results
+      - /home/quanvu/uts/AWI_testing_data:/root/AWI_testing_data
     network_mode: host
     ipc: host
     stdin_open: true  # Equivalent to -i, keeps stdin open = default
