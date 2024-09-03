@@ -17,8 +17,13 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /home/quanvu/git/wool-estimation:/root/wool-estimation
-      - /media/quanvu/MinhQuanVu/AWI:/root/AWI
+      # - /media/quanvu/MinhQuanVu4/AWI:/root/AWI
+      - /home/quanvu/uts/AWI_testing_data:/root/AWI_testing_data
     network_mode: host
     ipc: host
     stdin_open: true  # Equivalent to -i, keeps stdin open = default
     tty: true  # Equivalent to -t, allocates a TTY = default
+    working_dir: /root/wool-estimation/fibre_segmentation/debug/
+
+# cd /root/wool-estimation/fibre_segmentation/debug/
+

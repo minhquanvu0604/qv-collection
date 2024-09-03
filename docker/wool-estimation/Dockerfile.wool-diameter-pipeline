@@ -37,7 +37,8 @@ RUN apt-get update && \
     zlib1g \
     python3.10-venv \
     python3.10-dev \
-    python3-pip && \
+    python3-pip \
+    python3-tk && \
     rm -rf /var/lib/apt/lists/*
 
 # NOTE Still have problems relating to Cython  
@@ -80,7 +81,9 @@ RUN python3.10 -m pip install \
     opencv-python \
     torch \
     torchvision \
-    pycocotools
+    pycocotools \
+    keyboard \
+    centerline-width
 
 # Clean up unnecessary files to reduce image size
 RUN ldconfig && \
